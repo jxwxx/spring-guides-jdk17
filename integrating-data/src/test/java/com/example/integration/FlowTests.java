@@ -1,6 +1,7 @@
 package com.example.integration;
 
 import com.rometools.rome.feed.synd.SyndEntryImpl;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
@@ -21,6 +22,7 @@ public class FlowTests {
     @Autowired
     private MessageChannel news;
 
+    @Test
     public void test() throws Exception {
         assertThat(this.newsAdapter.isRunning()).isFalse();
         SyndEntryImpl syndEntry = new SyndEntryImpl();
