@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-on-kubernetes
+  name: spring-on-kubernetes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-on-kubernetes
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spring-on-kubernetes
+    spec:
+      containers:
+      - image: spring-k8s/spring-on-kubernetes:snapshot
+        name: spring-on-kubernetes
+        resources: {}
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 10"]
+        volumeMounts:
+          - mountPath: /workspace/config
+            name: config-volume
+      volumes:
+        - name: config-volume
+          configMap:
+            name: spring-on-kubernetes
+status: {}
