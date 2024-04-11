@@ -1,0 +1,4 @@
+rootProject.name = 'client-side-load-balancing-with-spring-cloud-loadbalancer'
+
+include 'say-hello'
+include 'user'
